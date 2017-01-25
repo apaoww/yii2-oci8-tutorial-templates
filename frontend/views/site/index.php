@@ -3,6 +3,12 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+//echo json_encode($model->ROW->TABLE_T->COL_LIST);
+$colList = $model->ROW->TABLE_T->COL_LIST;
+$x = 1;
+foreach($colList->COL_LIST_ITEM as $item){
+echo json_encode($item)."<br />";
+}
 ?>
 <div class="site-index">
 

@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8580bd82955b1fbb80d47024e184056e",
-    "content-hash": "e1929a97e872bdbaacc8530468eccb67",
+    "hash": "2347d88dc0839d7e57485de6fbc2d481",
+    "content-hash": "37a6c6fe8c4bb1f97e25ab52c8b9154a",
     "packages": [
+        {
+            "name": "apaoww/yii2-oci8",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/apaoww/yii2-oci8.git",
+                "reference": "e0e83f85f200599a7d909a44e235836d55eda904"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/apaoww/yii2-oci8/zipball/e0e83f85f200599a7d909a44e235836d55eda904",
+                "reference": "e0e83f85f200599a7d909a44e235836d55eda904",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "apaoww\\oci8\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Apa Oww",
+                    "email": "apa.oww@gmail.com"
+                }
+            ],
+            "description": "Oci8 Driver for Yii2 ",
+            "keywords": [
+                "oci8",
+                "yii"
+            ],
+            "time": "2015-07-08 06:13:38"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.5",
@@ -903,7 +948,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "apaoww/yii2-oci8": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

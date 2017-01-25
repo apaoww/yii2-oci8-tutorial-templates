@@ -12,7 +12,8 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use yii\db\Query;
+use frontend\models\NewAcad;
 /**
  * Site controller
  */
@@ -72,7 +73,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //$users = NewAcad::findBySql("select * from ec_new_acad where rownum <= 100")->all();
+        //$users = NewAcad::find()->limit(100)->all();
+        $connection = \Yii::$app->db;
+        $model = $connection->createCommand("select DBMS_METADATA.get_xml('TABLE','EC_NEW_ACAD') as info from DUAL");
+        //$model = $connection->createCommand('SELECT * FROM ec_new_acad where rownum <= 100');
+        $users = $model->queryAll();
+        $rows =    simplexml_load_string($users[0]['INFO']);
+        $users = $rows;
+        return $this->render('index', [
+            "model"=>$users,
+        ]);
     }
 
     /**
