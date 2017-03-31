@@ -9,9 +9,13 @@ These instructions will get you a copy of the Yii2 Advance Template using yii2-o
 ### Prerequisites
 
 1 - php
+
 2 - oracle database
+
 3 - Operating system linux or window
+
 4 - oci8 php module
+
 5 - oracle instance client download from oracle (http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html)
 
 
@@ -42,7 +46,11 @@ return [
             'dsn' => 'oci8:dbname=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))(CONNECT_DATA=(SID=xe)));charset=AL32UTF8;',
             'username' => 'youroracledatabaseschema',
             'password' => 'youroracleschemapassword',
-            'attributes' => []
+            'attributes' => [],
+            'enableSchemaCache' => true, //increase performance when retrieved table meta data
+            'schemaCacheDuration' => 3600,
+            'schemaCache' => 'cache',
+
         ],
         //...other component
     ],
