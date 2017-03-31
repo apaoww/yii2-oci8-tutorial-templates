@@ -12,7 +12,7 @@ $this->title="Query Update Example";
 
 <div class="row">
     <div class="col-md-6">
-        <h3>Insert Using Model Employee</h3>
+        <h3>Insert Using EMPLOYEE package</h3>
         <pre>
             <code>
                 $connection = \Yii::$app->db;
