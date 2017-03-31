@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\Employee;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -13,7 +14,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\db\Query;
-use frontend\models\NewAcad;
 /**
  * Site controller
  */
@@ -73,16 +73,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        //$users = NewAcad::findBySql("select * from ec_new_acad where rownum <= 100")->all();
-        //$users = NewAcad::find()->limit(100)->all();
-        $connection = \Yii::$app->db;
-        $model = $connection->createCommand("select DBMS_METADATA.get_xml('TABLE','EC_NEW_ACAD') as info from DUAL");
-        //$model = $connection->createCommand('SELECT * FROM ec_new_acad where rownum <= 100');
-        $users = $model->queryAll();
-        $rows =    simplexml_load_string($users[0]['INFO']);
-        $users = $rows;
+
         return $this->render('index', [
-            "model"=>$users,
+            "model"=>[],
         ]);
     }
 
@@ -105,6 +98,114 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionSelect(){
+        $usingModel = Employee::find()->limit(100)->all();
+        $connection = \Yii::$app->db;
+        $usingCommand = $connection->createCommand("select * from EMPLOYEE ");
+        //$model = $connection->createCommand('SELECT * FROM ec_new_acad where rownum <= 100');
+        $usingCommandResult = $usingCommand->queryAll();
+
+        return $this->render('select', [
+            "usingModel"=>$usingModel,
+            "usingCommandResult"=>$usingCommandResult,
+        ]);
+    }
+
+    public function actionInsert(){
+        $emp = new Employee();
+        $emp->NAME = substr( md5(rand()), 0, 7);
+        $emp->save();
+        $usingModel = Employee::find()->orderBy(['ID'=>'asc'])->limit(100)->all();
+        return $this->render('insert', [
+            "usingModel"=>$usingModel,
+        ]);
+    }
+
+    public function actionPackage(){
+        $connection = \Yii::$app->db;
+        $sql = <<<sql
+BEGIN
+EMPLOYEE_TAPI.INS(
+:p_NAME
+);
+END;
+
+sql;
+
+        $usingCommand = $connection->createCommand($sql,[
+            ':p_NAME' => "".substr( md5(rand()), 0, 7)
+        ]);
+        $usingCommand->execute();
+        $usingModel = Employee::find()->orderBy(['ID'=>'asc'])->limit(100)->all();
+        return $this->render('insert_package', [
+            "usingModel"=>$usingModel,
+        ]);
+    }
+
+    public function actionPackageReturn(){
+        $connection = \Yii::$app->db;
+        $sql = <<<sql
+BEGIN
+EMPLOYEE_TAPI.MY_RANDOM_NUMBER(
+:random_number
+);
+END;
+
+sql;
+
+        $usingCommand = $connection->createCommand($sql,[]);
+        $my_random_number = 0;
+        $usingCommand->bindParam(':random_number',$my_random_number, null, 32);
+        $usingCommand->execute();
+        $usingModel = Employee::find()->orderBy(['ID'=>'asc'])->limit(100)->all();
+        return $this->render('package_return', [
+            "my_random_number"=>$my_random_number,
+        ]);
+    }
+
+    public function actionCursor(){
+        $connection = \Yii::$app->db;
+        $sql = <<<sql
+DECLARE
+  P_ID VARCHAR2(200);
+  v_Return VARCHAR2(200);
+BEGIN
+  P_ID := :ID_IN;
+
+  v_Return := FIND_EMP(
+    P_ID => P_ID
+  );
+  /* Legacy output:
+DBMS_OUTPUT.PUT_LINE('v_Return = ' || v_Return);
+*/
+  :v_Return := v_Return;
+rollback;
+END;
+
+sql;
+
+        $usingCommand = $connection->createCommand($sql,[
+            ":ID_IN" => 2,
+        ]);
+        $my_cursor_value_from_oracle = 0;
+        $usingCommand->bindParam(':v_Return',$my_cursor_value_from_oracle, null, 32);
+        $usingCommand->execute();
+        $usingModel = Employee::find()->orderBy(['ID'=>'asc'])->limit(100)->all();
+        return $this->render('cursor', [
+            "my_cursor_value_from_oracle"=>$my_cursor_value_from_oracle,
+        ]);
+    }
+
+    public function actionUpdate(){
+        $emp = Employee::find(1)->one();
+        $emp->NAME = substr( md5(rand()), 0, 7);
+        $emp->save();
+        $usingModel = Employee::find()->orderBy(['ID'=>'asc'])->limit(100)->all();
+        return $this->render('update', [
+            "usingModel"=>$usingModel,
+        ]);
     }
 
     /**

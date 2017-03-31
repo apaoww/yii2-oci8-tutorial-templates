@@ -1,14 +1,9 @@
 <?php
 
 /* @var $this yii\web\View */
+use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
-//echo json_encode($model->ROW->TABLE_T->COL_LIST);
-$colList = $model->ROW->TABLE_T->COL_LIST;
-$x = 1;
-foreach($colList->COL_LIST_ITEM as $item){
-echo json_encode($item)."<br />";
-}
+
 ?>
 <div class="site-index">
 
@@ -24,34 +19,32 @@ echo json_encode($item)."<br />";
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <h2>Example Select Model/Create Command</h2>
+                <p><?=Html::a( "View ", $url = ["site/select"], $options = [] ) ?></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Example Insert Using Model</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <p><?=Html::a( "View ", $url = ["site/insert"], $options = [] ) ?></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>Example Update Using Model</h2>
+                <p><?=Html::a( "View ", $url = ["site/update"], $options = [] ) ?></p>
+            </div>
+        </div>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Example Run Package</h2>
+                <p><?=Html::a( "View ", $url = ["site/package"], $options = [] ) ?></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Example Run Package Return Some value from package</h2>
+                <p><?=Html::a( "View ", $url = ["site/package-return"], $options = [] ) ?></p>
+            </div>
+            <div class="col-lg-4">
+                <h2>Example Run Package Return Cursor value from oracle function</h2>
+                <p><?=Html::a( "View ", $url = ["site/cursor"], $options = [] ) ?></p>
             </div>
         </div>
 
